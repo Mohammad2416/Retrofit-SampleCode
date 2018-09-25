@@ -16,7 +16,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    Retrofit retrofit;
+   private static Retrofit retrofit;
+   private static final String BASE_URL = "https://rbtapp.rightel.ir:82/";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://rbtapp.rightel.ir:82/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+//        retrofit = new Retrofit.Builder()
+//                .baseUrl("https://rbtapp.rightel.ir:82/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
 
-        MyApi myApi = retrofit.create(MyApi.class);
+        MyApi myApi = getRetrofitInstance().create(MyApi.class);
         myApi.getBanners().enqueue(new Callback<Banner>() {
             @Override
             public void onResponse(Call<Banner> call, Response<Banner> response) {
@@ -46,4 +49,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    public static Retrofit getRetrofitInstance() {
+        if (retrofit == null) {
+            retrofit = new retrofit2.Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }
+
 }
