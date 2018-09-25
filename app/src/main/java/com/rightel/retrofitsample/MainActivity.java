@@ -32,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
 //                .addConverterFactory(GsonConverterFactory.create())
 //                .build();
 
-        MyApi myApi = getRetrofitInstance().create(MyApi.class);
-        myApi.getBanners().enqueue(new Callback<Banner>() {
+//        MyApi myApi = getRetrofitInstance().create(MyApi.class);
+//        myApi.getBanners().enqueue(new Callback<Banner>() {
+          getRetrofitInstance().create(MyApi.class).getBanners().enqueue(new Callback<Banner>() {
             @Override
             public void onResponse(Call<Banner> call, Response<Banner> response) {
                 Banner banner = response.body();
