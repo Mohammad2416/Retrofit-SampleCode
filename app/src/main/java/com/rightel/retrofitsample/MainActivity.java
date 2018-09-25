@@ -35,21 +35,22 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.textViewMain);
 
+//********* To Create a instance of Retrofit in simple way you can writhe below code but it is not good way
+
 //        retrofit = new Retrofit.Builder()
 //                .baseUrl("https://rbtapp.rightel.ir:82/")
 //                .addConverterFactory(GsonConverterFactory.create())
 //                .build();
-
+//*********
 //        MyApi myApi = getRetrofitInstance().create(MyApi.class);
 //        myApi.getBanners().enqueue(new Callback<Banner>() {
-        //====
+//******** 
 //          getRetrofitInstance().create(MyApi.class).getBanners().enqueue(new Callback<Banner>() {
 //            @Override
 //            public void onResponse(Call<Banner> call, Response<Banner> response) {
 //                Banner banner = response.body();
 //                List<Content> banners = banner.getContent();
 //                banners.get(1).getName();
-//
 //            }
 //
 //            @Override
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         getData();
     }
 
+// a better way to create an instance of Retrofit
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
@@ -72,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
         return retrofit;
     }
 
+
     private void getData() {
+//****** You can get data with this way:
 
 //        getRetrofitInstance().create(MyApi.class).getBanners().subscribeOn(Schedulers.newThread())
 //                .observeOn(AndroidSchedulers.mainThread())
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
+//***** OR get data with another way :D
         getRetrofitInstance().create(MyApi.class).getBanners().subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
