@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.textViewMain);
 
-//********* To Create a instance of Retrofit in simple way you can writhe below code but it is not good way
+//********* To Create an instance of Retrofit in simple way you can writhe below code but it is not good way
 
 //        retrofit = new Retrofit.Builder()
 //                .baseUrl("https://rbtapp.rightel.ir:82/")
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getData() {
-//****** You can get data with this way:
+//****** You can get data with this way by using RxJava:
 
 //        getRetrofitInstance().create(MyApi.class).getBanners().subscribeOn(Schedulers.newThread())
 //                .observeOn(AndroidSchedulers.mainThread())
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
-//***** OR get data with another way :D
+//***** OR get data with another way :D by using RxJava
         getRetrofitInstance().create(MyApi.class).getBanners().subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
