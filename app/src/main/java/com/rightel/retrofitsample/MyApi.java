@@ -10,7 +10,7 @@ public interface MyApi {
 
     @GET("banners")
     Observable<Banner> getBanners();
-//*** If You User Just Retrofit you don't need to user Observable, Like this:
+//*** If You Use Just Retrofit you don't need to use Observable, Like this:
 //    Call<Banner> getBanners();
 
 

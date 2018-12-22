@@ -78,34 +78,35 @@ public class MainActivity extends AppCompatActivity {
     private void getData() {
 //****** You can get data with this way by using RxJava:
 
-//        getRetrofitInstance().create(MyApi.class).getBanners().subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Banner>() {
-//                    @Override
-//                    public void onCompleted() {
-//                        Toast.makeText(MainActivity.this, "onCompleted", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Banner data) {
-//                        Banner b = data;
-//                        b.getContent();
-//                        textView.setText(b.getContent().get(0).getAddressLarge());
-//                    }
-//                });
-
-//***** OR get data with another way :D by using RxJava
-        getRetrofitInstance().create(MyApi.class).getBanners().subscribeOn(Schedulers.io())
+        getRetrofitInstance().create(MyApi.class).getBanners()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseData -> textView.setText(responseData.getContent().get(0).getName()));
+                .subscribe(new Observer<Banner>() {
+                    @Override
+                    public void onCompleted() {
+                        Toast.makeText(MainActivity.this, "onCompleted", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+
+                    }
+
+                    @Override
+                    public void onNext(Banner data) {
+                        Banner b = data;
+                        b.getContent();
+                        textView.setText(b.getContent().get(0).getAddressLarge());
+                    }
+                });
+
+//***** OR get data with another way :D by using RxJava
+//        getRetrofitInstance().create(MyApi.class).getBanners().subscribeOn(Schedulers.io())
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(responseData -> textView.setText(responseData.getContent().get(0).getName()));
     }
 
 }
